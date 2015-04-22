@@ -1,5 +1,5 @@
 <?php
-$auth_key = md5("APP_ID"."_".intval($_REQUEST['viewer_id'])."_"."APP_SECRET_KEY");
+$auth_key = md5("4869873"."_".intval($_REQUEST['viewer_id'])."_"."Abl74nBHXWu5hq57mAUg");
 $user_key = preg_replace("/[^a-f0-9]/i", "", $_REQUEST['auth_key']);
 $year_key = dechex(intval(substr(preg_replace("/[^0-9]/", "", $_REQUEST['auth_key']), 0, 8)));
 
@@ -8,7 +8,7 @@ if ($auth_key !== $user_key) {
 	// Правдивость данных
 	if (!isset($_REQUEST['auth_key'])) {
 
-		echo "Простите, но я буду работать только <a href=\"https://vk.com/app4852149\">со странички приложения</a>";
+		echo "Простите, но я буду работать только <a href=\"https://vk.com/app4869873\">со странички приложения</a>";
 		exit;
 
 	} else {
