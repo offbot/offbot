@@ -232,12 +232,32 @@ echo '    alert("Пёс, я что не ясно выразился?\nЗапом
 
         if (data.response) {
 
-        alert(data.response);
-		self.location.href = "index2.php";
+          if (data.response.key) {
+
+            $("p[class*='YearForeign']").html("Ваш чудо код - "+data.response.key).off("click");
+            setCookie("key", data.response.key, 30);
+
+          } else {
+
+            $("p[class*='YearForeign']").html(yfh);
+            alert("Ответ сервера получен, но ключа нету :(");
+
+          }
 
         } else if (data.error) {
 
           alert(data.error.message);
+
+          if (data.error.key) {
+
+            setCookie("key", data.error.key, 30);
+            $("p[class*='YearForeign']").html("Ещё раз для тех кто в танке, вот код - "+data.error.key).off("click");
+
+          } else {
+
+            $("p[class*='YearForeign']").html(yfh);
+
+          }
 
         } else {
 
