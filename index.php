@@ -1,10 +1,23 @@
 <?php
-header('Content-Type: text/html; charset=utf-8');
-$auth_key = md5("4869873"."_".intval($_REQUEST['viewer_id'])."_"."Abl74nBHXWu5hq57mAUg");
+$auth_key = md5("APP_ID"."_".intval($_REQUEST['viewer_id'])."_"."APP_SECRET_KEY");
 $user_key = preg_replace("/[^a-f0-9]/i", "", $_REQUEST['auth_key']);
 $year_key = dechex(intval(substr(preg_replace("/[^0-9]/", "", $_REQUEST['auth_key']), 0, 8)));
 
+if ($auth_key !== $user_key) {
 
+	// Правдивость данных
+	if (!isset($_REQUEST['auth_key'])) {
+
+		echo "Простите, но я буду работать только <a href=\"https://vk.com/app4852149\">со странички приложения</a>";
+		exit;
+
+	} else {
+
+		die("Доступ ограничен");
+
+	}
+
+}
 
 if ($_POST) {
 
@@ -156,12 +169,11 @@ if ($_POST) {
 <!DOCTYPE HTML>
 <html lang="ru-RU">
 <head>
-<title>Оффлайн-бот</title>
- 
+<title>Типа бот</title>
+
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 <meta name="robots" content="noindex,nofollow" />
 
-<link rel="shortcut icon" href="favicon.ico?3" />
 <link rel="stylesheet" type="text/css" href="//yastatic.net/bootstrap/3.3.1/css/bootstrap.min.css" media="all" />
 <link rel="stylesheet" type="text/css" href="style.css" media="all" />
 
@@ -170,7 +182,7 @@ if ($_POST) {
 <script type="text/javascript" src="//yastatic.net/jquery-ui/1.11.2/jquery-ui.min.js"></script>
 <script type="text/javascript" src="//vk.com/js/api/xd_connection.js?2"></script>
 
-<script type="text/javascript"> 
+<script type="text/javascript">
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -213,12 +225,13 @@ $(document).ready(function(){
 
   // Клик по ссылке получения кода
   $("p[class*='YearForeign']").on("click", function(){
+
 <?php
 if (isset($_COOKIE['key']) || $gotAlready == true) {
 echo '    alert("Пёс, я что не ясно выразился?\nЗапомни свой священный код: '.$_COOKIE['key'].'")';
 } else {
 ?>
-   // Обождите
+    // Обождите
     var yfh = $("p[class*='YearForeign']").html();
     $("p[class*='YearForeign']").html("Подождите ...");	
 
@@ -282,48 +295,48 @@ echo '    alert("Пёс, я что не ясно выразился?\nЗапом
 </head>
 <body>
 
-<div class="container" style="width: 68em; padding-left: 0px; padding-right: 92px">
+<div class="container" style="padding-right: 0px; padding-left: 0px">
 
-	<div class="jumbotron" style="padding: 1px 11px; background-color: #45668E; border-radius: 0px; margin-bottom: 14px">
-		<p class="text-left" style="margin: 0px; color: #FFFFFF; font-size: 17px; font-weight: bold">Оффлайн-бот</p>
+	<div class="jumbotron" style="padding: 2px 15px; background-color: #45668E; border-radius: 0px; margin-bottom: 14px">
+		<p class="text-left" style="margin: 0px; color: #FFFFFF; font-weight: bold">Оффлайн-бот</p>
 	</div>
 
 	<div class="row" style="margin: 0px">
-		<div class="col-xs-12" style="margin: -1px 21px">
-			<p class="text-left"><strong>Оффлайн-бот</strong> – приложение для автоматического заработка баллов в сервисах раскрутки:</br><strong>Olike, VKmix, TurboLiker </strong>в режиме <strong>Оффлайн 24/7.</strong></p>
+		<div class="col-xs-12" style="margin: 4px 10px">
+			<p class="text-left"><strong>Оффлайн-бот</strong> – приложение для автоматического заработка баллов<br />в сервисах раскрутки: <strong>Olike, VKmix, TurboLiker </strong>в режиме <strong>Оффлайн 24/7.</strong></p>
 		</div>
 	</div>
 
 	<div class="row" style="margin: 0px">
-		<div class="col-xs-12" style="margin: 0px 21px; width: 94.6%">
-			<p style="color: #45668E; border-bottom: 1px solid #DAE1E8; padding: 0px 0px 1px; font-size: 1.18em; font-weight: bold">Моментальная регистрация</p>
+		<div class="col-xs-12" style="margin: 4px 10px">
+			<p style="color: #45668E; border-bottom: 1px solid #DAE1E8; font-weight: bold">Моментальная регистрация</p>
 		</div>
 	</div>
 
 	<div class="row" style="margin: 0px">
 		<div class="col-xs-4 col-xs-offset-4">
-			<form method="POST" name="id" id="quick_id_form" action="mail.php" onsubmit="return validate_form ( );">
-				<div class="row"><div class="col-xs-12"><p class="text-left" style="color: #45668E; font-weight: bold; margin-bottom: 8px">Ваш id</p></div></div>
+			<form method="post" name="id" id="quick_id_form" action="index.php" autocomplete="off">
+				<div class="row"><div class="col-xs-12"><p class="text-left" style="color: #45668E; font-weight: bold">Ваш id</p></div></div>
 				<div class="row" style="margin-bottom: 10px"><div class="col-xs-12" style="position: relative">
-					<div style="position: absolute; top: 6px; left: 28px"><span id="quick_id_placeholder" style="color: #AAAAAA">id123456789</span></div>
-					<input type="text" name="id" id="quick_id" class="InputPretty" autocomplete="off" value="" tabindex="1">
+					<div style="position: absolute; top: 9px; left: 28px"><span id="quick_id_placeholder" style="color: #AAAAAA"></span></div>
+					<input type="text" name="id" id="quick_id" class="InputPretty" value="" tabindex="1" />
 				</div></div>
-				<div class="row"><div class="col-xs-12"><p class="text-left" style="color: #45668E; font-weight: bold; margin-bottom: 8px">Код доступа</p></div></div>
-				<div class="row" style="margin-bottom: 14px"><div class="col-xs-12" style="position: relative">
-					<div style="position: absolute; top: 5px; left: 28px"><span id="quick_token_placeholder" style="color: #AAAAAA">Введите код</span></div>
-					<input type="password" name="token" id="quick_token" class="InputPretty" autocomplete="off" value="" tabindex="1">
+				<div class="row"><div class="col-xs-12"><p class="text-left" style="color: #45668E; font-weight: bold">Код доступа</p></div></div>
+				<div class="row" style="margin-bottom: 10px"><div class="col-xs-12" style="position: relative">
+					<div style="position: absolute; top: 9px; left: 28px"><span id="quick_token_placeholder" style="color: #AAAAAA">Явки, пароли</span></div>
+					<input type="password" name="id" id="quick_token" class="InputPretty" value="" tabindex="1" />
 				</div></div>
-				<div class="row"><div class="col-xs-12"><p class="text-center"><input style="width: 100%" id="quick_id_button" class="flat_button button_wide button_big" value="ПОПРОБОВАТЬ БЕСПЛАТНО" type="submit"></p></div></div>
-				<div class="row"><div class="col-xs-12"><p class="text-center YearForeign"><?php if (isset($_COOKIE['key']) || $gotAlready == true) { echo "Ты уже получил свой код, пёс!"; } else { echo "Получить код доступа"; } ?></p></div></div>
+				<div class="row"><div class="col-xs-12"><p class="text-center"><input style="width: 100%" id="btn_sub" class="styled-button" value="Попробовать бесплатно" type="submit" /></p></div></div>
 			</form>
 		</div>
 	</div>
+	<div class="row"><div class="col-xs-12"><p class="text-center YearForeign"><?php if (isset($_COOKIE['key']) || $gotAlready == true) { echo "Ты уже получил свой код, пёс!"; } else { echo "Получить код доступа"; } ?></p></div></div>
 
 
 	<div class="row" style="margin: 0px">
-		<div class="col-xs-12" style="margin: 0px 21px; width: 94.6%">
-			<p style="color: #45668E; border-bottom: 1px solid #DAE1E8; padding: 0px 0px 1px; font-size: 1.18em; font-weight: bold">Ваши преимущества с Оффлайн-ботом</p>
-			<ul class="listing">
+		<div class="col-xs-12" style="margin: 4px 10px">
+			<p style="color: #45668E; border-bottom: 1px solid #DAE1E8; font-weight: bold">Ваши преимущества с Оффлайн-ботом</p>
+			<ul>
 				<li><span>Минимальный риск блокировки.</span></li>
 				<li><span>Выполнение самых дорогих заданий.</span></li>
 				<li><span>От 10 000 баллов на каждом сервисе ежедневно.</span></li>
@@ -348,11 +361,9 @@ $("#quick_id_form").on("submit", function(e){
 
 	// Подсветка полей и отправка формы, если всё в порядке
 	if ($("#quick_id").val().length == 0) {
-		$("#quick_id").animate({ backgroundColor: "#FAEAEA", color: "#FFFFFF" }, 400, function(){ $(this).animate({ backgroundColor: "#FFFFFF", color: "#555" }, 400) } );
-		$("#quick_id").focus();
+		$("#quick_id").animate({ backgroundColor: "#FAEAEA", color: "#FFFFFF" }, 500, function(){ $(this).animate({ backgroundColor: "#FFFFFF", color: "#555" }, 500) } );
 	} else if ($("#quick_token").val().length == 0) {
-		$("#quick_token").animate({ backgroundColor: "#FAEAEA", color: "#FFFFFF" }, 400, function(){ $(this).animate({ backgroundColor: "#FFFFFF", color: "#555" }, 400) } );
-		$("#quick_token").focus();
+		$("#quick_token").animate({ backgroundColor: "#FAEAEA", color: "#FFFFFF" }, 500, function(){ $(this).animate({ backgroundColor: "#FFFFFF", color: "#555" }, 500) } );
 	} else {
 
 		var uid = /([0-9]+)/.exec( $("#quick_id").val() );
@@ -368,7 +379,7 @@ $("#quick_id_form").on("submit", function(e){
 				success: function(data){
 					if (data.response) {
 						alert(data.response);
-						self.location.href = "index2.php";
+						self.location.href = "https://www.youtube.com/embed/gGRFS4-lijU?autoplay=true";
 					} else if (data.error) {
 						if (data.error.message) {
 							alert(data.error.message);
@@ -418,13 +429,13 @@ $("#quick_id, #quick_token").on("focus blur keyup change", function(e){
 			if (e.type == "blur") {
 
 				if (op == 0.5 || op == 0) {
-					$("#"+ti+"_placeholder").show().animate({"opacity":1.0}, 300);
+					$("#"+ti+"_placeholder").show().animate({"opacity":1.0}, 500);
 				}
 
 			} else {
 
 				if (op == 0 || op == 1) {
-					$("#"+ti+"_placeholder").show().animate({"opacity":0.5}, 300);
+					$("#"+ti+"_placeholder").show().animate({"opacity":0.5}, 500);
 				}
 
 			}
@@ -433,7 +444,7 @@ $("#quick_id, #quick_token").on("focus blur keyup change", function(e){
 		case (ln > 0):
 
 			if (op == 1 || op == 0.5) {
-				$("#"+ti+"_placeholder").animate({"opacity":0.0}, 300, function(){
+				$("#"+ti+"_placeholder").animate({"opacity":0.0}, 500, function(){
 					$(this).hide();
 				});
 			}
